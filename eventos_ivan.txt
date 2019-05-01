@@ -1,0 +1,99 @@
+Especificação de Eventos
+
+# 1. Todo Evento possui os campos especificados em Evento
+# 2. Os eventos serão transmitidos por endpoint de API REST
+# em formato JSON ou JSON compactado em arquivo .zip
+# com exceção do Evento InspecaoNaoInvasiva, que é transmitido
+# por arquivo BSON
+# O endpoint conterá o nome do Evento. Ex.: /ControledeAcesso
+# O conteúdo do JSON será na forma campo: valor
+# Ex. {"DataEvento": "2019-04-17T09:52:01Z",
+# Podendo se transmitir vários eventos por meio de listas
+# Ex. [ {campo:valor, campo:valor, ...} , {campo:valor, ...}, ...]
+# 3. Sempre que o tipo for "Data" significa data UTC no formato ISO
+# UTC Data ISO 8601 - AAAA-MM-DDThh:mmZ
+# Ex.  2019-04-17T09:52:01Z
+
+Evento
+    # Campos inseridos pelo Servidor REST que recebe os eventos
+    CodigoRecinto    # Código Siscomex do Recinto que transmitiu o Evento
+    DataRecebimento  # Data formato ISO
+    IPTransmissaoEvento    # IP da Estação que enviou o arquivo
+    # Campos contidos no Evento
+    DataEvento       # Data de ocorrência do Evento
+    OperadorEvento   # CPF do operador que realizou/participou/operou
+    DataRegistro     # Data de registro no sistema transmissor
+    OperadorRegistro # CPF do responsável pelo registro no sistema
+
+
+ControledeAcessoVeiculoMercadoria
+    IDSistemaInterno    # Número inteiro
+    IDAgendamento       # Número (ID) interno do agendamento efetuado
+    Direcao             # E-S (Entrada/Saída)
+    DataAgendada        # Data agendada para o evento de entrada/saída
+    CPFMotorista        # Texto. Somente números.
+    CPFCliente          # Contratante do armazenamento. Se houver
+    Chassi              # Chassi do veículo
+    IDGate #  Chave idenfiticadora do ponto de controle
+           # de acesso no sistema original
+    CodigoSiscomexDestino # Se houver
+    DataLiberacaoCarga  # Se houver
+    Peso                # Número inteiro
+
+ControledeAcessoVeiculoCarregador
+    IDSistemaInterno    # Número inteiro
+    IDAgendamento       # Número (ID) interno do agendamento efetuado
+    Direcao             # E-S (Entrada/Saída)
+    DataAgendada        # Data agendada para o evento de entrada/saída
+    CPFMotorista        # Texto. Somente números.
+    CNPJTransportadora  # Texto. Somente números.
+    CPFCliente          # Contratante do armazenamento. Se houver
+    PlacaCavalo         # Placa do veículo transportador
+    PlacaCarreta        # Placa da carreta ou reboque (Se houver)
+    PlacaCarreta2       # Placa da segunda carreta ou reboque (Se houver)
+    NumeroContainer     # Se houver
+    Vazio               # S-N-N/A
+    Lacre               # Número conferido do lacre
+    Avarias             # Texto
+    NumeroContainer2    # Se houver
+    Vazio2              # S-N-N/A
+    Lacre2              # Número conferido do lacre
+    Avarias2            # Texto
+    CTE                 # Se houver
+    DTC                 # Se houver
+    IDGate #  Chave idenfiticadora do ponto de controle
+           # de acesso no sistema original
+    CodigoSiscomexDestino # Se houver
+    DataLiberacaoCarga  # Se houver
+
+
+
+InspecaoNaoInvasiva
+    # Para transmissão da imagem de escaneamento.
+    # Imagem deve ser cópia da imagem original gerada pelo scanner,
+    # sem tratamentos ou filtros, fornecida com resolução de 1024 colunas
+    # e linhas proporcionais ao tamanho original
+    # Se o aparelho de inspeção não invasiva gera arquivos adicionais com
+    # metadados (Ex.: XML com informações sobre o escaneamento)
+    # este arquivo precisa ser transferido separadamente e os campos
+    # FileNameImagem preenchido com o FileName da imagem original
+    # e numeroinformado igual ao do arquivo de imagem
+    unidade             # Sigla da Unidade Jurisdição
+    numeroinformado     # Número identificador da unidade de carga
+    dataescaneamento    # Data da passagem da carga no escâner
+    criacaoarquivo      # Data da criação do arquivo no S.O. de origem
+    modificacaoarquivo  # Última modificação do arquivo no S.O. de origem
+    Caminho             # Caminho da imagem quando capturado
+    FileName            # Nome do arquivo original
+    FileNameImagem      # Nome do arquivo de imagem principal (para XML ou outro
+                        # arquivo complementar)
+    content             # Conteúdo do arquivo original
+    contentType         # Tipo de mídia: IANA Mimetype (Ex.: 'image/jpeg' para
+                        # imagem de escaneamento, 'text/xml' para arquivo xml)
+
+
+
+Marcelo Augustus Cubas
+
+
+
